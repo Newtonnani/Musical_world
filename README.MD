@@ -6,8 +6,17 @@ create virtualenv and activate
 
 pip install -r requirements.txt
 
-export SQLALCHEMY_DATABASE_URI=sqlite:///site.db
+config postgresql in songs/__init__.py (POSTGRES={user:<username>,pw:<password>,db:<databasename>,host:<hostaddress>,port:<portnumber>})
+
 export FLASK_APP=run.py
 export FLASK_ENV=development
 
 python run.py
+
+
+
+#can insert this file "Flied.postman_collection.json" into postman you can check
+
+
+
+******************************THANK YOU*****************************************

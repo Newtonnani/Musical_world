@@ -32,7 +32,7 @@ class Podcast(db.Model):
     duration = db.Column(db.Integer,nullable=False)
     uploaded = db.Column(db.DateTime,default=datetime.datetime.utcnow,nullable=False)
     host = db.Column(db.String(100),nullable=False)
-    # participants = db.Column(db.ARRAY(db.String(100)))
+    participants = db.Column(db.ARRAY(db.String(100)))
 
 
     def __repr__(self):
@@ -44,8 +44,8 @@ class Podcast(db.Model):
             'name_of_the_song': self.name_of_the_song,
             'duration': self.duration,
             'uploaded':self.uploaded,
-            'host':self.host
-            # 'participants':self.participants
+            'host':self.host,
+            'participants':self.participants
         }
 
 class Audiobook(db.Model):

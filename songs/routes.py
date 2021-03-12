@@ -32,8 +32,9 @@ def create():
             name_of_the_song = request.args.get('name_of_the_song')
             duration = request.args.get('duration')
             host = request.args.get('host')
+            participants = request.args.get('participants')
             try:
-                podcast = Podcast(name_of_the_song=name_of_the_song,duration=int(duration),host=host)
+                podcast = Podcast(name_of_the_song=name_of_the_song,duration=int(duration),host=host,participants=participants)
                 db.session.add(podcast)
                 db.session.commit()
                 return "song created!. song id = {} and  audio file type = {}".format(podcast.id,"Podcast"),200
