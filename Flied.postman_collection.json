@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "c0b890c2-fc29-4a1a-b9f8-fe9632022218",
+		"name": "Flied",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/create?audio_file_type=podcast&duration=400&author_of_the_title=King john&narrator=hillsong&title_of_the_audiobook=Salamandar&name_of_the_song=Bleed the day&host=King John",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"create"
+					],
+					"query": [
+						{
+							"key": "audio_file_type",
+							"value": "podcast"
+						},
+						{
+							"key": "duration",
+							"value": "400"
+						},
+						{
+							"key": "author_of_the_title",
+							"value": "King john"
+						},
+						{
+							"key": "narrator",
+							"value": "hillsong"
+						},
+						{
+							"key": "title_of_the_audiobook",
+							"value": "Salamandar"
+						},
+						{
+							"key": "name_of_the_song",
+							"value": "Bleed the day"
+						},
+						{
+							"key": "host",
+							"value": "King John"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/delete/audiobook/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"delete",
+						"audiobook",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name_of_the_song\": \"John Theme song\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/update/song/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"update",
+						"song",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/get/song/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"get",
+						"song",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/get/song",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"get",
+						"song"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
