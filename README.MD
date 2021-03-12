@@ -6,4 +6,8 @@ create virtualenv and activate
 
 pip install -r requirements.txt
 
+export SQLALCHEMY_DATABASE_URI=sqlite:///site.db
+export FLASK_APP=run.py
+export FLASK_ENV=development
+
 python run.py
