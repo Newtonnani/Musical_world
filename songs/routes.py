@@ -12,52 +12,57 @@ def index():
 
 @app.route('/create',methods=['POST'])
 def create():
-    request_data = request.json
-    print(request_data.get('name_of_the_song'))
-    audioFileType = request_data.get('audio_file_type')
-    if audioFileType:
-        if audioFileType.lower() == "song":
-            name_of_the_song = request_data.get('name_of_the_song')
-            duration = request_data.get('duration')
-            try:
-                song = Song(name_of_the_song=name_of_the_song,duration=int(duration))
-                db.session.add(song)
-                db.session.commit()
-                # data = dict(name_of_the_song=name_of_the_song,duration=duration)
-                # response = app.response_class(response=json.dumps(song),
-                # status=200,
-                # mimetype='application/json')
-                return "song created!. song id = {} and  audio file type = {}".format(song.id,"Song"),200
-            except Exception as e:
-                return(str(e)),400
-        elif audioFileType.lower() == "podcast":
-            name_of_the_song = request_data.get('name_of_the_song')
-            duration = request_data.get('duration')
-            host = request_data.get('host')
-            participants = request_data.get('participants')
-            try:
-                podcast = Podcast(name_of_the_song=name_of_the_song,duration=int(duration),host=host,participants=participants)
-                db.session.add(podcast)
-                db.session.commit()
-                return "song created!. song id = {} and  audio file type = {}".format(podcast.id,"Podcast"),200
-            except Exception as e:
-                return str(e),400
-        elif audioFileType.lower() == "audiobook":
-            title_of_the_audiobook = request_data.get('title_of_the_audiobook')
-            author_of_the_title = request_data.get('author_of_the_title')
-            narrator = request_data.get('narrator')
-            duration = request_data.get('duration')
-            try:
-                audiobook = Audiobook(title_of_the_audiobook=title_of_the_audiobook,author_of_the_title=author_of_the_title,narrator=narrator,duration=int(duration))
-                db.session.add(audiobook)
-                db.session.commit()
-                return "song created!. song id = {} and  audio file type = {}".format(audiobook.id,"Audiobook"),200
-            except Exception as e:
-                return (str(e)),400
+    request_data = request.json['data']
+    song_ids = []
+    podcast_ids = []
+    audiobook_ids = []
+    for request_data in request_data:
+        audioFileType = request_data.get('audio_file_type')
+        if audioFileType:
+            if audioFileType.lower() == "song":
+                name_of_the_song = request_data.get('name_of_the_song')
+                duration = request_data.get('duration')
+                try:
+                    song = Song(name_of_the_song=name_of_the_song,duration=int(duration))
+                    db.session.add(song)
+                    db.session.commit()
+                    song_ids.append(song.id)
+                    # data = dict(name_of_the_song=name_of_the_song,duration=duration)
+                    # response = app.response_class(response=json.dumps(song),
+                    # status=200,
+                    # mimetype='application/json')
+                except Exception as e:
+                    return(str(e)),400
+            elif audioFileType.lower() == "podcast":
+                name_of_the_song = request_data.get('name_of_the_song')
+                duration = request_data.get('duration')
+                host = request_data.get('host')
+                participants = request_data.get('participants')
+                try:
+                    podcast = Podcast(name_of_the_song=name_of_the_song,duration=int(duration),host=host,participants=participants)
+                    db.session.add(podcast)
+                    db.session.commit()
+                    podcast_ids.append(podcast.id)
+                except Exception as e:
+                    return str(e),400
+            elif audioFileType.lower() == "audiobook":
+                title_of_the_audiobook = request_data.get('title_of_the_audiobook')
+                author_of_the_title = request_data.get('author_of_the_title')
+                narrator = request_data.get('narrator')
+                duration = request_data.get('duration')
+                try:
+                    audiobook = Audiobook(title_of_the_audiobook=title_of_the_audiobook,author_of_the_title=author_of_the_title,narrator=narrator,duration=int(duration))
+                    db.session.add(audiobook)
+                    db.session.commit()
+                    audiobook_ids.append(audiobook.id)
+                except Exception as e:
+                    return (str(e)),400
+            else:
+                return "Not a valid file type",400
         else:
-            return "Not a valid file type",400
-    else:
-        return "<h3>Non file not valid</h3>", 500
+            return "<h3>Non file not valid</h3>", 500
+
+    return "songs created!. song ids = {} and  audio file type = {} , podcast ids = {} and  audio file type = {} , audiobook ids = {} and  audio file type = {}".format(song_ids,"Song",podcast_ids,"Podcast",audiobook_ids,"Audiobook"),200
 
 
 @app.route('/delete/<audio_file_type>/<int:_id>',methods=['DELETE'])
