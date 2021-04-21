@@ -12,11 +12,13 @@ def index():
 
 @app.route('/create',methods=['POST'])
 def create():
-    audioFileType = request.args.get('audio_file_type')
+    request_data = request.json
+    print(request_data.get('name_of_the_song'))
+    audioFileType = request_data.get('audio_file_type')
     if audioFileType:
         if audioFileType.lower() == "song":
-            name_of_the_song = request.args.get('name_of_the_song')
-            duration = request.args.get('duration')
+            name_of_the_song = request_data.get('name_of_the_song')
+            duration = request_data.get('duration')
             try:
                 song = Song(name_of_the_song=name_of_the_song,duration=int(duration))
                 db.session.add(song)
@@ -29,10 +31,10 @@ def create():
             except Exception as e:
                 return(str(e)),400
         elif audioFileType.lower() == "podcast":
-            name_of_the_song = request.args.get('name_of_the_song')
-            duration = request.args.get('duration')
-            host = request.args.get('host')
-            participants = request.args.get('participants')
+            name_of_the_song = request_data.get('name_of_the_song')
+            duration = request_data.get('duration')
+            host = request_data.get('host')
+            participants = request_data.get('participants')
             try:
                 podcast = Podcast(name_of_the_song=name_of_the_song,duration=int(duration),host=host,participants=participants)
                 db.session.add(podcast)
@@ -41,10 +43,10 @@ def create():
             except Exception as e:
                 return str(e),400
         elif audioFileType.lower() == "audiobook":
-            title_of_the_audiobook = request.args.get('title_of_the_audiobook')
-            author_of_the_title = request.args.get('author_of_the_title')
-            narrator = request.args.get('narrator')
-            duration = request.args.get('duration')
+            title_of_the_audiobook = request_data.get('title_of_the_audiobook')
+            author_of_the_title = request_data.get('author_of_the_title')
+            narrator = request_data.get('narrator')
+            duration = request_data.get('duration')
             try:
                 audiobook = Audiobook(title_of_the_audiobook=title_of_the_audiobook,author_of_the_title=author_of_the_title,narrator=narrator,duration=int(duration))
                 db.session.add(audiobook)
